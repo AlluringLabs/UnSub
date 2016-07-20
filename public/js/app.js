@@ -27730,23 +27730,13 @@ var _reactRouterRedux = require('react-router-redux');
 
 var _reactRouter = require('react-router');
 
-var _redux = require('redux');
-
-var _reduxThunk = require('redux-thunk');
-
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-var _reduxLogger = require('redux-logger');
-
-var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
-
 var _Root = require('./containers/Root');
 
 var _Root2 = _interopRequireDefault(_Root);
 
-var _reducers = require('./reducers');
+var _store = require('./config/store');
 
-var _reducers2 = _interopRequireDefault(_reducers);
+var _store2 = _interopRequireDefault(_store);
 
 var _routes = require('./config/routes');
 
@@ -27754,14 +27744,22 @@ var _routes2 = _interopRequireDefault(_routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var logger = (0, _reduxLogger2.default)();
-var store = (0, _redux.createStore)(_reducers2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default, logger));
-
+var store = (0, _store2.default)();
 var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHistory, store);
+
+// const createStorageListener = (store) => {
+// 	return event => {
+// 		console.log(event);
+// 		const { action } = JSON.parse(event.newValue);
+// 		store.dispatch(action);
+// 	}
+// };
+
+// window.addEventListener('storage', createStorageListener(store));
 
 (0, _reactDom.render)(_react2.default.createElement(_Root2.default, { history: history, store: store, routes: _routes2.default }), document.getElementById('root'));
 
-},{"./config/routes":265,"./containers/Root":267,"./reducers":268,"react":248,"react-dom":56,"react-router":98,"react-router-redux":65,"redux":256,"redux-logger":249,"redux-thunk":250}],263:[function(require,module,exports){
+},{"./config/routes":265,"./config/store":266,"./containers/Root":268,"react":248,"react-dom":56,"react-router":98,"react-router-redux":65}],263:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27863,7 +27861,54 @@ exports.default = _react2.default.createElement(
 	_react2.default.createElement(_reactRouter.Route, { path: '/authenticate/:token', component: _App2.default })
 );
 
-},{"../containers/App":266,"react":248,"react-router":98}],266:[function(require,module,exports){
+},{"../containers/App":267,"react":248,"react-router":98}],266:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = initStore;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = require('redux');
+
+var _reduxThunk = require('redux-thunk');
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _reduxLogger = require('redux-logger');
+
+var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+
+var _reducers = require('../reducers');
+
+var _reducers2 = _interopRequireDefault(_reducers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function initStore() {
+	var logger = (0, _reduxLogger2.default)();
+	var middleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, logger);
+
+	var store = (0, _redux.createStore)(_reducers2.default, {}, middleware);
+
+	var createStorageListener = function createStorageListener(store) {
+		return function (event) {
+			var _JSON$parse = JSON.parse(event.key);
+
+			var action = _JSON$parse.action;
+
+			store.dispatch(action);
+		};
+	};
+
+	window.addEventListener('storage', createStorageListener(store));
+};
+
+},{"../reducers":269,"react":248,"redux":256,"redux-logger":249,"redux-thunk":250}],267:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27906,8 +27951,8 @@ var App = function (_Component) {
 		value: function componentDidMount() {
 			var token = this.props.routeParams.token;
 			if (typeof token !== 'undefined') {
+				localStorage.setItem('jwt-token', JSON.stringify(token));
 				console.log(token);
-				this.props.dispatchLoggedIn();
 			}
 		}
 	}, {
@@ -27934,16 +27979,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch, componentProps) {
-	return {
-		dispatchLoggedIn: function dispatchLoggedIn() {
-			console.log("LOGGED IN");
-		}
-	};
+	return {};
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
 
-},{"../components/Header":264,"react":248,"react-redux":59,"react-router":98}],267:[function(require,module,exports){
+},{"../components/Header":264,"react":248,"react-redux":59,"react-router":98}],268:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27970,7 +28011,7 @@ var Root = function Root(props) {
 
 exports.default = Root;
 
-},{"react":248,"react-redux":59,"react-router":98}],268:[function(require,module,exports){
+},{"react":248,"react-redux":59,"react-router":98}],269:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

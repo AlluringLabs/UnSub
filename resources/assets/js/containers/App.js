@@ -13,8 +13,8 @@ class App extends Component {
 	componentDidMount() {
 		const token = this.props.routeParams.token;
 		if(typeof token !== 'undefined') {
+			localStorage.setItem('jwt-token', JSON.stringify(token));
 			console.log(token);
-			this.props.dispatchLoggedIn();
 		}
 	}
 
@@ -36,11 +36,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch, componentProps) {
-	return {
-		dispatchLoggedIn: () => {
-			console.log("LOGGED IN");
-		}
-	};
+	return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
