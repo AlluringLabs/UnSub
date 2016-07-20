@@ -5,14 +5,15 @@ const Authentication = (props) => {
 	const handleLoginClick = (e) => {
 		e.preventDefault();
 
-		window.open("/auth");
+		// Opens a new window with twitter authentication page.
+		window.open("http://unsub.dev/auth", "Twitter Auth", 
+			"width=500,height=500,top=400,left=500,resizable=yes,toolbar=yes"
+		);
 	};
 
 	return (
 		<div>
-			<button onClick={handleLoginClick}>
-				Login
-			</button>
+			<button onClick={handleLoginClick}>Login</button>
 		</div>
 	);
 };

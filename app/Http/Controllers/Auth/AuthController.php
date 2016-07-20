@@ -19,12 +19,9 @@ class AuthController extends Controller
     public function handleProviderCallback()
     {
         $social = Socialite::driver('twitter')->user();
-        // $user = $this->findOrCreateUser($social);
-        // $jwt = JWTAuth::fromUser($user);
-        // return redirect('/authenticate');
-
-        // dump($jwt);
-        dump($social);
+        $user = $this->findOrCreateUser($social);
+        $jwt = JWTAuth::fromUser($user);
+        return redirect('/authenticate/' . $jwt);
     }
 
     public function findOrCreateUser($social)

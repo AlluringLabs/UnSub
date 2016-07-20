@@ -12,8 +12,9 @@ class App extends Component {
 
 	componentDidMount() {
 		const token = this.props.routeParams.token;
-		if(token !== null) {
-			
+		if(typeof token !== 'undefined') {
+			console.log(token);
+			this.props.dispatchLoggedIn();
 		}
 	}
 
@@ -35,7 +36,11 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch, componentProps) {
-	return {};
+	return {
+		dispatchLoggedIn: () => {
+			console.log("LOGGED IN");
+		}
+	};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

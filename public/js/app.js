@@ -27780,7 +27780,8 @@ var Authentication = function Authentication(props) {
 	var handleLoginClick = function handleLoginClick(e) {
 		e.preventDefault();
 
-		window.open("/auth");
+		// Opens a new window with twitter authentication page.
+		window.open("http://unsub.dev/auth", "Twitter Auth", "width=500,height=500,top=400,left=500,resizable=yes,toolbar=yes");
 	};
 
 	return _react2.default.createElement(
@@ -27904,7 +27905,10 @@ var App = function (_Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			var token = this.props.routeParams.token;
-			if (token !== null) {}
+			if (typeof token !== 'undefined') {
+				console.log(token);
+				this.props.dispatchLoggedIn();
+			}
 		}
 	}, {
 		key: 'render',
@@ -27930,7 +27934,11 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch, componentProps) {
-	return {};
+	return {
+		dispatchLoggedIn: function dispatchLoggedIn() {
+			console.log("LOGGED IN");
+		}
+	};
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
