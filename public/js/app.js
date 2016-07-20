@@ -27761,7 +27761,82 @@ var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHi
 
 (0, _reactDom.render)(_react2.default.createElement(_Root2.default, { history: history, store: store, routes: _routes2.default }), document.getElementById('root'));
 
-},{"./config/routes":263,"./containers/Root":265,"./reducers":266,"react":248,"react-dom":56,"react-router":98,"react-router-redux":65,"redux":256,"redux-logger":249,"redux-thunk":250}],263:[function(require,module,exports){
+},{"./config/routes":265,"./containers/Root":267,"./reducers":268,"react":248,"react-dom":56,"react-router":98,"react-router-redux":65,"redux":256,"redux-logger":249,"redux-thunk":250}],263:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Authentication = function Authentication(props) {
+	var handleLoginClick = function handleLoginClick(e) {
+		e.preventDefault();
+
+		window.open("/auth");
+	};
+
+	return _react2.default.createElement(
+		'div',
+		null,
+		_react2.default.createElement(
+			'button',
+			{ onClick: handleLoginClick },
+			'Login'
+		)
+	);
+};
+
+function mapStateToProps(state) {
+	return {};
+};
+
+function mapDispatchToProps(dispatch, componentProps) {
+	return {};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Authentication);
+
+},{"react":248,"react-redux":59}],264:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Authentication = require('./Authentication');
+
+var _Authentication2 = _interopRequireDefault(_Authentication);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Header = function Header(props) {
+	return _react2.default.createElement(
+		'header',
+		{ className: 'header' },
+		_react2.default.createElement(
+			'nav',
+			{ className: 'nav navbar' },
+			_react2.default.createElement('a', { href: '#' })
+		),
+		_react2.default.createElement(_Authentication2.default, null)
+	);
+};
+
+exports.default = Header;
+
+},{"./Authentication":263,"react":248}],265:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27780,9 +27855,14 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default });
+exports.default = _react2.default.createElement(
+	_reactRouter.Route,
+	null,
+	_react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default }),
+	_react2.default.createElement(_reactRouter.Route, { path: '/authenticate/:token', component: _App2.default })
+);
 
-},{"../containers/App":264,"react":248,"react-router":98}],264:[function(require,module,exports){
+},{"../containers/App":266,"react":248,"react-router":98}],266:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27798,6 +27878,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRedux = require('react-redux');
 
 var _reactRouter = require('react-router');
+
+var _Header = require('../components/Header');
+
+var _Header2 = _interopRequireDefault(_Header);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27819,7 +27903,8 @@ var App = function (_Component) {
 	_createClass(App, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			// Do stuff
+			var token = this.props.routeParams.token;
+			if (token !== null) {}
 		}
 	}, {
 		key: 'render',
@@ -27829,6 +27914,7 @@ var App = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'app' },
+				_react2.default.createElement(_Header2.default, null),
 				children
 			);
 		}
@@ -27849,7 +27935,7 @@ function mapDispatchToProps(dispatch, componentProps) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
 
-},{"react":248,"react-redux":59,"react-router":98}],265:[function(require,module,exports){
+},{"../components/Header":264,"react":248,"react-redux":59,"react-router":98}],267:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27876,7 +27962,7 @@ var Root = function Root(props) {
 
 exports.default = Root;
 
-},{"react":248,"react-redux":59,"react-router":98}],266:[function(require,module,exports){
+},{"react":248,"react-redux":59,"react-router":98}],268:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

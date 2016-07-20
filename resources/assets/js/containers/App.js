@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory, Link } from 'react-router';
 
+import Header from '../components/Header';
+
 class App extends Component {
 
 	constructor(props) {
@@ -9,13 +11,17 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		// Do stuff
+		const token = this.props.routeParams.token;
+		if(token !== null) {
+			
+		}
 	}
 
 	render() {
 		const { children } = this.props;
 		return (
 			<div className="app">
+				<Header />
 				{ children }
 			</div>
 		);
