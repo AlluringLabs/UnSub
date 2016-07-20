@@ -27747,16 +27747,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var store = (0, _store2.default)();
 var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHistory, store);
 
-// const createStorageListener = (store) => {
-// 	return event => {
-// 		console.log(event);
-// 		const { action } = JSON.parse(event.newValue);
-// 		store.dispatch(action);
-// 	}
-// };
-
-// window.addEventListener('storage', createStorageListener(store));
-
 (0, _reactDom.render)(_react2.default.createElement(_Root2.default, { history: history, store: store, routes: _routes2.default }), document.getElementById('root'));
 
 },{"./config/routes":265,"./config/store":266,"./containers/Root":268,"react":248,"react-dom":56,"react-router":98,"react-router-redux":65}],263:[function(require,module,exports){
