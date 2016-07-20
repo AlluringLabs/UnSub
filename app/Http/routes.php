@@ -11,6 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Authentication Routes
+Route::get('/auth', 'Auth\AuthController@redirectToProvider');
+Route::get('/auth/callback', 'Auth\AuthController@handleProviderCallback');
+
+// The API Routes
+Route::group(['prefix' => 'api/v1', 'name' => 'api', 'namespace' => 'Api'], function() {
+	Route::get('/', function() {
+		return response()->json(['something' => 1]);
+	});
 });
+
+// Send any other get requests to the React view.
+Route::get('/{any}', function() {
+	return view('index');
+})->where('any', '.*');
