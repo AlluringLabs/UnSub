@@ -14,12 +14,13 @@ export default function initStore() {
 		middleware
 	);
 
-	const createStorageListener = (store) => {
-		return event => {
-			const { action } = JSON.parse(event.key);
-			store.dispatch(action);
-		};
-	};
+	return store;
+	// const createStorageListener = (store) => {
+	// 	return event => {
+	// 		const { action } = JSON.parse(event.key);
+	// 		store.dispatch(action);
+	// 	};
+	// };
 
-	window.addEventListener('storage', createStorageListener(store));
+	// window.addEventListener('storage', createStorageListener(store));
 };
