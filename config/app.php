@@ -159,6 +159,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
+        'Thujohn\Twitter\TwitterServiceProvider',
         Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
@@ -208,6 +209,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Twitter' => 'Thujohn\Twitter\Facades\Twitter',
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
         'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
 

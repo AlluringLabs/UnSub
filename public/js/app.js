@@ -28084,9 +28084,8 @@ var Auth = function (_Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			var token = this.props.routeParams.token;
-			var decoded = (0, _jwtDecode2.default)(token);
+			localStorage.setItem('accessToken', token);
 			console.log(token);
-			console.log(decoded);
 		}
 	}, {
 		key: 'render',

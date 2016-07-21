@@ -21,7 +21,7 @@ class AuthController extends Controller
         $social = Socialite::driver('twitter')->user();
         $user = $this->findOrCreateUser($social);
         $jwt = JWTAuth::fromUser($user);
-        dump($jwt);
+        // dump($jwt);
         return redirect('/authenticate/' . $jwt);
     }
 

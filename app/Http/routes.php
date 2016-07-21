@@ -16,7 +16,9 @@ Route::get('/auth', 'Auth\AuthController@redirectToProvider');
 Route::get('/auth/callback', 'Auth\AuthController@handleProviderCallback');
 
 // The API Routes
-Route::group(['prefix' => 'api/v1', 'name' => 'api', 'namespace' => 'Api'], function() {
+Route::group(['prefix' => 'api/v1', 'name' => 'api', 'namespace' => 'Api', 'middleware' => 'jwt.auth'], function() {
+	Route::get('/me', 'MeController@index');
+	Route::get('/friends', 'FriendsController@index');
 	Route::get('/', function() {
 		return response()->json(['something' => 1]);
 	});

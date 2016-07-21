@@ -11,9 +11,8 @@ class Auth extends Component {
 
 	componentDidMount() {
 		let token = this.props.routeParams.token;
-		let decoded = jwt_decode(token);
+		localStorage.setItem('accessToken', token);
 		console.log(token);
-		console.log(decoded);
 	}
 
 	render() {
