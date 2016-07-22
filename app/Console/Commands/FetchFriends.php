@@ -51,15 +51,15 @@ class FetchFriends extends Command
         //     (new $action())->handle();
         // }
 
-        // foreach(User::all() as $user)
-        // {
-        //     (new TwitterWrapper())->setToken($user->token, $user->tokenSecret);
-        //     $friends = Twitter::getFriends(['user_id' => $user->twitter_id]);
+        foreach(User::all() as $user)
+        {
+            (new TwitterWrapper())->setToken($user->token, $user->tokenSecret);
+            $friends = Twitter::getFriends(['user_id' => $user->twitter_id]);
 
-        //     foreach($friends as $friend)
-        //     {
+            foreach($friends as $friend)
+            {
                 
-        //     }
-        // }
+            }
+        }
     }
 }
